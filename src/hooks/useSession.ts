@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+const API_BASE = (import.meta.env.DEV || isGitHubPages) ? 'http://localhost:3001' : '';
 
 export interface Session {
   id: string;

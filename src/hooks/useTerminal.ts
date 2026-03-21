@@ -3,7 +3,8 @@ import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { AttachAddon } from '@xterm/addon-attach';
 
-const WS_BASE = import.meta.env.DEV
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+const WS_BASE = (import.meta.env.DEV || isGitHubPages)
   ? `ws://localhost:3001`
   : `ws://${window.location.host}`;
 
