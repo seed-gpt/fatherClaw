@@ -16,6 +16,14 @@ export function useSession() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const refresh = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/sessions`);
+      const data = await res.json();
+      setSessions(data);
+    } catch { /* silent */ }
+  }, []);
+
   const spawn = useCallback(async (prompt: string) => {
     setLoading(true);
     setError(null);
@@ -37,15 +45,9 @@ export function useSession() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [refresh]);
 
-  const refresh = useCallback(async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/sessions`);
-      const data = await res.json();
-      setSessions(data);
-    } catch { /* silent */ }
-  }, []);
+
 
   const kill = useCallback(async (id: string) => {
     await fetch(`${API_BASE}/api/sessions/${id}`, { method: 'DELETE' });

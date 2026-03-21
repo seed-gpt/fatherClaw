@@ -103,7 +103,8 @@ export async function stopAgent(sessionId: string): Promise<boolean> {
 
 // ── List all sessions ──
 export function listSessions(): Session[] {
-  return Array.from(sessions.values()).map(({ stream, ...rest }) => rest as Session);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return Array.from(sessions.values()).map(({ stream: _stream, ...rest }) => rest as Session);
 }
 
 // ── Get single session ──

@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { createServer } from 'http';
 import path from 'path';
 import apiRouter from './api.js';
@@ -6,6 +7,8 @@ import { setupWebSocket } from './ws.js';
 
 const PORT = parseInt(process.env.PORT || '3001', 10);
 const app = express();
+
+app.use(cors());
 
 // API routes
 app.use('/api', apiRouter);
