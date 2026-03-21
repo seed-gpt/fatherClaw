@@ -1,8 +1,17 @@
 import Dockerode from 'dockerode';
 import { PassThrough } from 'stream';
 import path from 'path';
+import fs from 'fs';
+import os from 'os';
 
-const docker = new Dockerode({ socketPath: '/var/run/docker.sock' });
+// Auto-detect Docker socket for macOS, Linux, and Windows
+let socketPath = '/var/run/docker.sock';
+const macSocket = path.join(os.homedir(), '.docker/run/docker.sock');
+if (!fs.existsSync(socketPath) && fs.existsSync(macSocket)) {
+  socketPath = macSocket;
+}
+
+const docker = process.env.DOCKER_HOST ? new Dockerode() : new Dockerode({ socketPath });
 const IMAGE_NAME = 'fatherclaude-agent';
 const DOCKER_DIR = path.resolve(import.meta.dirname, '..', 'docker');
 
