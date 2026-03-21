@@ -92,6 +92,7 @@ export async function attachStream(sessionId: string): Promise<NodeJS.ReadableSt
 
   const container = docker.getContainer(session.containerId);
   const stream = await container.attach({ stream: true, stdout: true, stderr: true, logs: true });
+  stream.setEncoding('utf8');
   return stream;
 }
 

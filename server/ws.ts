@@ -37,7 +37,7 @@ export function setupWebSocket(server: Server): WebSocketServer {
       // Relay container output → WebSocket → xterm.js
       stream.on('data', (chunk: Buffer) => {
         if (ws.readyState === WebSocket.OPEN) {
-          ws.send(chunk);
+          ws.send(chunk.toString('utf8'));
         }
       });
 
