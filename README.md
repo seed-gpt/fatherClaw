@@ -89,21 +89,18 @@ docker compose up
 
 FatherClaude is built for absolute observability and control over agent execution.
 
-```mermaid
-sequenceDiagram
-    participant Browser as "React + xterm.js"
-    participant Server as "Express (WebSocket)"
-    participant Docker as "Docker Daemon"
-    participant Agent as "Claude Code Container"
-
-    Browser->>Server: HTTP POST /spawn (Task Description)
-    Server->>Docker: docker run (Agent Image)
-    Docker-->>Agent: Boot Headless CLI
-    loop Live Streaming
-        Agent-->>Docker: stdout/stderr
-        Docker-->>Server: Dockerode Stream
-        Server-->>Browser: WebSocket (Live Terminal)
-    end
+```text
+┌──────────────────────────────┐
+│  Browser (React + xterm.js)  │
+└──────────────┬───────────────┘
+               │ REST + WebSocket
+┌──────────────▼───────────────┐
+│ Server (Express + Dockerode) │
+└──────────────┬───────────────┘
+               │ Docker Socket
+┌──────────────▼───────────────┐
+│ Agent Container (Claude CLI) │
+└──────────────────────────────┘
 ```
 
 | Layer | Technology Stack |
