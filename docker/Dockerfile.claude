@@ -1,0 +1,40 @@
+# ── FatherClaude Agent Container ──
+# Sandboxed environment with Claude Code CLI pre-installed.
+# Runs headless with bypassPermissions inside Docker isolation.
+
+FROM node:20-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl git jq python3 python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Claude Code CLI
+RUN npm install -g @anthropic-ai/claude-code 2>/dev/null || true
+
+# Non-root agent user (Claude CLI refuses bypassPermissions under root)
+RUN useradd -m -s /bin/bash -u 1000 agent \
+    && rm -f /usr/bin/su /usr/bin/sudo /bin/su 2>/dev/null || true
+
+# Pre-configured workspace
+COPY workspace/ /workspace/
+RUN mkdir -p /workspace/output /workspace/.claude \
+    && chown -R agent:agent /workspace /home/agent
+
+USER agent
+WORKDIR /workspace
+
+# Default: run Claude with the prompt from env
+ENTRYPOINT ["/bin/bash", "-c", "\
+  echo \"$AGENT_PROMPT\" | claude \
+    --print \
+    --permission-mode bypassPermissions \
+    --output-format text \
+    --system-prompt /workspace/CLAUDE.md \
+    --no-session-persistence \
+    --max-budget-usd ${MAX_BUDGET:-5} \
+  "]

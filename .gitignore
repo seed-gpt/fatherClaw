@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+dist/
+dist-server/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker/workspace/output/
+
+# Build
+*.tsbuildinfo

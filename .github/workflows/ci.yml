@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: TypeScript Check (Frontend)
+        run: npx tsc --noEmit
+
+      - name: TypeScript Check (Server)
+        run: npx tsc --noEmit -p tsconfig.server.json
+
+      - name: Build Frontend
+        run: npm run build:client
+
+      - name: Build Agent Image
+        run: docker build -f docker/Dockerfile.claude -t fatherclaude-agent docker/

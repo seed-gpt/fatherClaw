@@ -1,0 +1,21 @@
+services:
+  server:
+    build: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker:/app/docker
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - NODE_ENV=production
+      - PORT=3001
+    restart: unless-stopped
+
+  # Optional: Build the agent image ahead of time
+  agent-image:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.claude
+    image: fatherclaude-agent
+    entrypoint: ["echo", "Image built successfully"]
