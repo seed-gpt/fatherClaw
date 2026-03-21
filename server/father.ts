@@ -1,9 +1,7 @@
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
 
-const execAsync = promisify(exec);
 const SESSIONS_DIR = path.resolve(import.meta.dirname, '..', 'sessions');
 
 export async function generateWorkspace(sessionId: string, prompt: string, onLog: (msg: string) => void): Promise<string> {
@@ -12,7 +10,6 @@ export async function generateWorkspace(sessionId: string, prompt: string, onLog
 
   onLog(`\x1b[36m⚡ Father Claude is generating a custom workspace for you...\x1b[0m\r\n`);
   
-  // Create a base system prompt for Father Claude
   const instructions = `
 You are FatherClaude building an isolated workspace for a user request.
 USER REQUEST: "${prompt}"
@@ -27,24 +24,45 @@ USER REQUEST: "${prompt}"
 8. Please immediately write these files to the current directory.
   `.trim();
 
-  try {
-    const { stdout, stderr } = await execAsync(
-      `claude -p "${instructions.replace(/"/g, '\\"')}" --permission-mode bypassPermissions`, 
-      { 
-        cwd: dir, 
-        env: { ...process.env }, // inherits API key
-        timeout: 120000 // 2 minute timeout
-      }
-    );
+  return new Promise((resolve, reject) => {
+    let fullOutput = '';
     
-    onLog(`\x1b[32m✓ Workspace generated successfully.\x1b[0m\r\n`);
-    // Optional: write stdout/stderr to a log file inside the session for debugging
-    await fs.writeFile(path.join(dir, 'father.log'), stdout + '\n' + stderr);
+    // Use spawn to stream output live to the WebSocket and avoid maxBuffer issues
+    const child = spawn('claude', ['-p', instructions, '--permission-mode', 'bypassPermissions'], {
+      cwd: dir,
+      env: { ...process.env },
+      shell: true // required for resolving 'claude' via global path on some platforms
+    });
 
-    return dir;
-  } catch (err) {
-    const errMsg = err instanceof Error ? err.message : 'Unknown error';
-    onLog(`\x1b[31m✗ Father Claude execution failed: ${errMsg}\x1b[0m\r\n`);
-    throw err;
-  }
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      fullOutput += text;
+      // Convert newlines to CRLF for xterm.js rendering
+      onLog(text.replace(/\r?\n/g, '\r\n'));
+    });
+
+    child.stderr.on('data', (data) => {
+      const text = data.toString();
+      fullOutput += text;
+      // Fade stderr with gray
+      onLog(`\x1b[90m${text.replace(/\r?\n/g, '\r\n')}\x1b[0m`);
+    });
+
+    child.on('close', async (code) => {
+      if (code === 0) {
+        onLog(`\r\n\x1b[32m✓ Workspace generated successfully.\x1b[0m\r\n`);
+        await fs.writeFile(path.join(dir, 'father.log'), fullOutput);
+        resolve(dir);
+      } else {
+        const errorMsg = `Father Claude exited with code ${code}`;
+        onLog(`\r\n\x1b[31m✗ ${errorMsg}\x1b[0m\r\n`);
+        reject(new Error(errorMsg));
+      }
+    });
+
+    child.on('error', (err) => {
+      onLog(`\r\n\x1b[31m✗ Spawn error: ${err.message}\x1b[0m\r\n`);
+      reject(err);
+    });
+  });
 }
