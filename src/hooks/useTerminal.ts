@@ -54,7 +54,7 @@ export function useTerminal(sessionId: string | null, containerRef: React.RefObj
     wsRef.current = ws;
 
     ws.onopen = () => {
-      const attach = new AttachAddon(ws, { bidirectional: false });
+      const attach = new AttachAddon(ws, { bidirectional: true });
       term.loadAddon(attach);
     };
 

@@ -6,7 +6,7 @@ const API_BASE = (import.meta.env.DEV || isGitHubPages) ? 'http://localhost:3001
 export interface Session {
   id: string;
   prompt: string;
-  status: 'starting' | 'running' | 'done' | 'error';
+  status: 'generating' | 'building' | 'running' | 'done' | 'error';
   createdAt: string;
 }
 

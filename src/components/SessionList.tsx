@@ -10,7 +10,8 @@ interface Props {
 }
 
 const STATUS_INDICATORS: Record<string, string> = {
-  starting: '🟡',
+  generating: '🟡',
+  building: '🟠',
   running: '🟢',
   done: '⚪',
   error: '🔴',
@@ -19,7 +20,7 @@ const STATUS_INDICATORS: Record<string, string> = {
 export function SessionList({ sessions, activeId, onSelect, onKill, onRefresh }: Props) {
   // Auto-refresh running sessions
   useEffect(() => {
-    const hasActive = sessions.some(s => s.status === 'running' || s.status === 'starting');
+    const hasActive = sessions.some(s => s.status === 'running' || s.status === 'generating' || s.status === 'building');
     if (!hasActive) return;
     const interval = setInterval(onRefresh, 3000);
     return () => clearInterval(interval);
@@ -51,7 +52,7 @@ export function SessionList({ sessions, activeId, onSelect, onKill, onRefresh }:
             <div className="session-id">{s.id.slice(0, 8)}</div>
             <div className="session-prompt">{s.prompt.slice(0, 40)}{s.prompt.length > 40 ? '…' : ''}</div>
           </div>
-          {(s.status === 'running' || s.status === 'starting') && (
+          {(s.status === 'running' || s.status === 'generating' || s.status === 'building') && (
             <button
               className="session-kill"
               onClick={e => { e.stopPropagation(); onKill(s.id); }}
