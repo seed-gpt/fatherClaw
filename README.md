@@ -26,7 +26,7 @@
 
 <p align="center">
   <!-- TODO: Replace with an actual GIF/video of the streaming UI in action -->
-  <img src="https://via.placeholder.com/800x450/111827/4F46E5?text=▶+Streaming+Terminal+UI+Action+Shot" alt="FatherClaude Live Action" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" /> 
+  <img src="public/fatherclaude-live-action.png" alt="FatherClaude Live Action" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" /> 
 </p>
 
 ---
