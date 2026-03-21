@@ -10,14 +10,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/seed-gpt/fatherClaude/blob/main/LICENSE">
+  <a href="https://github.com/roeiba/fatherClaude/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-4F46E5?style=for-the-badge&logo=mit" alt="License" />
   </a>
-  <a href="https://github.com/seed-gpt/fatherClaude/stargazers">
-    <img src="https://img.shields.io/github/stars/seed-gpt/fatherClaude?style=for-the-badge&color=8B5CF6&logo=github" alt="Stars" />
+  <a href="https://github.com/roeiba/fatherClaude/stargazers">
+    <img src="https://img.shields.io/github/stars/roeiba/fatherClaude?style=for-the-badge&color=8B5CF6&logo=github" alt="Stars" />
   </a>
-  <a href="https://github.com/seed-gpt/fatherClaude/issues">
-    <img src="https://img.shields.io/github/issues/seed-gpt/fatherClaude?style=for-the-badge&color=EC4899" alt="Issues" />
+  <a href="https://github.com/roeiba/fatherClaude/issues">
+    <img src="https://img.shields.io/github/issues/roeiba/fatherClaude?style=for-the-badge&color=EC4899" alt="Issues" />
   </a>
   <a href="https://agentsbooks.com">
     <img src="https://img.shields.io/badge/Made%20by-AgentsBooks-10B981?style=for-the-badge" alt="Made by AgentsBooks" />
@@ -57,7 +57,7 @@ We bridge the gap between agent reasoning and your local environment. You provid
 ### 2. Install & Configure
 
 ```bash
-git clone https://github.com/seed-gpt/fatherClaude.git
+git clone https://github.com/roeiba/fatherClaude.git
 cd fatherClaude
 npm install
 
