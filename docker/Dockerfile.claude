@@ -16,16 +16,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Claude Code CLI
 RUN npm install -g @anthropic-ai/claude-code 2>/dev/null || true
 
-# Non-root agent user (Claude CLI refuses bypassPermissions under root)
-RUN useradd -m -s /bin/bash -u 1000 agent \
-    && rm -f /usr/bin/su /usr/bin/sudo /bin/su 2>/dev/null || true
+# Use existing non-root 'node' user (UID 1000, built into node:20-slim)
+# Claude CLI refuses bypassPermissions under root, so we run as node.
+RUN rm -f /usr/bin/su /usr/bin/sudo /bin/su 2>/dev/null || true
 
 # Pre-configured workspace
 COPY workspace/ /workspace/
 RUN mkdir -p /workspace/output /workspace/.claude \
-    && chown -R agent:agent /workspace /home/agent
+    && chown -R node:node /workspace
 
-USER agent
+USER node
 WORKDIR /workspace
 
 # Default: run Claude with the prompt from env
