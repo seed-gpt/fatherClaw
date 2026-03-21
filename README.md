@@ -91,10 +91,10 @@ FatherClaude is built for absolute observability and control over agent executio
 
 ```mermaid
 sequenceDiagram
-    participant Browser as React + xterm.js
-    participant Server as Express (WebSocket)
-    participant Docker as Docker Daemon
-    participant Agent as Claude Code Container
+    participant Browser as "React + xterm.js"
+    participant Server as "Express (WebSocket)"
+    participant Docker as "Docker Daemon"
+    participant Agent as "Claude Code Container"
 
     Browser->>Server: HTTP POST /spawn (Task Description)
     Server->>Docker: docker run (Agent Image)
