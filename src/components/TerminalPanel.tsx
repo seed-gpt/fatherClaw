@@ -27,7 +27,7 @@ export function TerminalPanel({ sessionId }: Props) {
           <div className="terminal-empty">
             <div className="terminal-empty-icon">🤖</div>
             <p>Spawn an agent to see it work</p>
-            <p className="terminal-empty-sub">The terminal will stream Claude's live output</p>
+            <p className="terminal-empty-sub">The terminal will stream OpenClaw's live output</p>
           </div>
         )}
       </div>

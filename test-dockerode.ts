@@ -14,7 +14,7 @@ const docker = process.env.DOCKER_HOST ? new Dockerode() : new Dockerode({ socke
 async function runTest() {
   console.log("Creating container...");
   const container = await docker.createContainer({
-    Image: 'fatherclaude-agent',
+    Image: 'fatherclaw-agent',
     Env: [
       `AGENT_PROMPT=Say the exact words "test success 123" and nothing else`,
       `ANTHROPIC_API_KEY=${process.env.ANTHROPIC_API_KEY || ''}`,

@@ -16,6 +16,6 @@ services:
   agent-image:
     build:
       context: ./docker
-      dockerfile: Dockerfile.claude
-    image: fatherclaude-agent
+      dockerfile: Dockerfile.claw
+    image: fatherclaw-agent
     entrypoint: ["echo", "Image built successfully"]

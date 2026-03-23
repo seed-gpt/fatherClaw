@@ -8,19 +8,19 @@ export async function generateWorkspace(sessionId: string, prompt: string, onLog
   const dir = path.join(SESSIONS_DIR, sessionId);
   await fs.mkdir(dir, { recursive: true });
 
-  onLog(`\x1b[36m⚡ Father Claude is generating a custom workspace for you...\x1b[0m\r\n`);
+  onLog(`\x1b[36m⚡ Father Claw is generating a custom workspace for you...\x1b[0m\r\n`);
   
   const instructions = `
-You are FatherClaude building an isolated workspace for a user request.
+You are FatherClaw building an isolated workspace for a user request.
 USER REQUEST: "${prompt}"
 
 1. Create a "Dockerfile" in the current directory.
 2. It MUST use "FROM node:20-slim".
 3. It MUST install system dependencies (curl, git, jq, etc) as needed by the prompt.
-4. It MUST run "npm install -g @anthropic-ai/claude-code".
+4. It MUST run "npm install -g openclaw".
 5. Optionally create an "mcp_servers.json", skills scripts, or initial files if the prompt requires them.
 6. Make sure to COPY those files into the container.
-7. The ENTRYPOINT MUST be '["claude"]'.
+7. The ENTRYPOINT MUST be '["openclaw"]'.
 8. Please immediately write these files to the current directory.
   `.trim();
 
@@ -54,7 +54,7 @@ USER REQUEST: "${prompt}"
         await fs.writeFile(path.join(dir, 'father.log'), fullOutput);
         resolve(dir);
       } else {
-        const errorMsg = `Father Claude exited with code ${code}`;
+        const errorMsg = `Father Claw exited with code ${code}`;
         onLog(`\r\n\x1b[31m✗ ${errorMsg}\x1b[0m\r\n`);
         reject(new Error(errorMsg));
       }

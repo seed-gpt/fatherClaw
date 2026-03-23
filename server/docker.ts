@@ -14,12 +14,12 @@ if (!fs.existsSync(socketPath) && fs.existsSync(macSocket)) {
 const docker = process.env.DOCKER_HOST ? new Dockerode() : new Dockerode({ socketPath });
 
 export async function buildDynamicImage(sessionId: string, contextDir: string, onLog: (msg: string) => void): Promise<string> {
-  const imageName = `fatherclaude-agent-${sessionId}`;
+  const imageName = `fatherclaw-agent-${sessionId}`;
   onLog(`\x1b[36m⚡ Building child agent container [${imageName}]...\x1b[0m\r\n`);
   
   // Make sure Dockerfile exists
   if (!fs.existsSync(path.join(contextDir, 'Dockerfile'))) {
-    throw new Error('Father Claude did not produce a Dockerfile in the workspace.');
+    throw new Error('Father Claw did not produce a Dockerfile in the workspace.');
   }
 
   const stream = await docker.buildImage(
@@ -62,7 +62,7 @@ export async function spawnInteractiveAgent(sessionId: string, imageName: string
       NetworkMode: 'bridge',
       Memory: 512 * 1024 * 1024, // 512MB limit
     },
-    Labels: { 'fatherclaude': 'true', 'session': sessionId },
+    Labels: { 'fatherclaw': 'true', 'session': sessionId },
   });
 
   sessionManager.updateStatus(sessionId, 'running', { containerId: container.id });

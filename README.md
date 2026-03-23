@@ -1,23 +1,23 @@
 <p align="center">
-  <img src="https://via.placeholder.com/120x120/111827/4F46E5?text=FC" alt="FatherClaude Logo" width="120" style="border-radius: 20%;" />
+  <img src="https://via.placeholder.com/120x120/111827/4F46E5?text=FC" alt="FatherClaw Logo" width="120" style="border-radius: 20%;" />
 </p>
 
-<h1 align="center">⚡ FatherClaude</h1>
+<h1 align="center">⚡ FatherClaw</h1>
 
 <p align="center">
   <strong>The ultimate open-source runtime for self-hosted AI agents.</strong><br>
-  <em>Spawn, watch, and control sandboxed Claude agents directly from your browser.</em>
+  <em>Spawn, watch, and control sandboxed OpenClaw agents directly from your browser.</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/roeiba/fatherClaude/blob/main/LICENSE">
+  <a href="https://github.com/roeiba/fatherClaw/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-4F46E5?style=for-the-badge&logo=mit" alt="License" />
   </a>
-  <a href="https://github.com/roeiba/fatherClaude/stargazers">
-    <img src="https://img.shields.io/github/stars/roeiba/fatherClaude?style=for-the-badge&color=8B5CF6&logo=github" alt="Stars" />
+  <a href="https://github.com/roeiba/fatherClaw/stargazers">
+    <img src="https://img.shields.io/github/stars/roeiba/fatherClaw?style=for-the-badge&color=8B5CF6&logo=github" alt="Stars" />
   </a>
-  <a href="https://github.com/roeiba/fatherClaude/issues">
-    <img src="https://img.shields.io/github/issues/roeiba/fatherClaude?style=for-the-badge&color=EC4899" alt="Issues" />
+  <a href="https://github.com/roeiba/fatherClaw/issues">
+    <img src="https://img.shields.io/github/issues/roeiba/fatherClaw?style=for-the-badge&color=EC4899" alt="Issues" />
   </a>
   <a href="https://agentsbooks.com">
     <img src="https://img.shields.io/badge/Made%20by-AgentsBooks-10B981?style=for-the-badge" alt="Made by AgentsBooks" />
@@ -26,21 +26,21 @@
 
 <p align="center">
   <!-- TODO: Replace with an actual GIF/video of the streaming UI in action -->
-  <img src="public/fatherclaude-live-action.png" alt="FatherClaude Live Action" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" /> 
+  <img src="public/fatherclaw-live-action.png" alt="FatherClaw Live Action" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" /> 
 </p>
 
 ---
 
-## 🌍 Why FatherClaude?
+## 🌍 Why FatherClaw?
 
-As AI models evolve in 2026, executing complex coding tasks requires more than just a chat interface. It requires an environment. **FatherClaude** provides a robust, fully-isolated Docker sandbox specifically designed for [Claude Code](https://code.claude.com). 
+As AI models evolve in 2026, executing complex coding tasks requires more than just a chat interface. It requires an environment. **FatherClaw** provides a robust, fully-isolated Docker sandbox specifically designed for [OpenClaw](https://code.openclaw.com). 
 
-We bridge the gap between agent reasoning and your local environment. You provide the prompt; FatherClaude spins up the container, hands Claude the keys (skills and MCP servers), and streams every line of thinking, executing, and debugging live to a beautiful React-powered web interface. Say goodbye to environment pollution and say hello to scalable, observable agent workflows.
+We bridge the gap between agent reasoning and your local environment. You provide the prompt; FatherClaw spins up the container, hands OpenClaw the keys (skills and MCP servers), and streams every line of thinking, executing, and debugging live to a beautiful React-powered web interface. Say goodbye to environment pollution and say hello to scalable, observable agent workflows.
 
 ## ✨ Features
 
-- 🐳 **Secure Sandboxing**: Complete Docker isolation. Your local machine is safe while Claude has full access to the sandboxed filesystem, shell, and web.
-- ⚡ **Live Streaming UI**: Real-time websocket terminal streaming (powered by React + xterm.js). Watch Claude work as if it's typing on your machine.
+- 🐳 **Secure Sandboxing**: Complete Docker isolation. Your local machine is safe while OpenClaw has full access to the sandboxed filesystem, shell, and web.
+- ⚡ **Live Streaming UI**: Real-time websocket terminal streaming (powered by React + xterm.js). Watch OpenClaw work as if it's typing on your machine.
 - 🔌 **Skills & MCP Ready**: Native support for the Model Context Protocol. Load your environment with custom tools and standard `skills.sh` definitions.
 - 🛡️ **Budget Control**: Hard-stop maximum USD budget limits baked into every session. Never worry about runaway inference costs.
 - 🌐 **One-Click Deploy**: Run a local fleet of agents with standard Docker Compose.
@@ -57,8 +57,8 @@ We bridge the gap between agent reasoning and your local environment. You provid
 ### 2. Install & Configure
 
 ```bash
-git clone https://github.com/roeiba/fatherClaude.git
-cd fatherClaude
+git clone https://github.com/roeiba/fatherClaw.git
+cd fatherClaw
 npm install
 
 # Set your API key
@@ -68,7 +68,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 ### 3. Build & Launch
 
 ```bash
-# Build the specialized Claude Code container image
+# Build the specialized OpenClaw container image
 npm run docker:build
 
 # Start the React UI and Express bridging server
@@ -87,7 +87,7 @@ docker compose up
 
 ## 📐 Architecture Overview
 
-FatherClaude is built for absolute observability and control over agent execution.
+FatherClaw is built for absolute observability and control over agent execution.
 
 ```text
 ┌──────────────────────────────┐
@@ -99,7 +99,7 @@ FatherClaude is built for absolute observability and control over agent executio
 └──────────────┬───────────────┘
                │ Docker Socket
 ┌──────────────▼───────────────┐
-│ Agent Container (Claude CLI) │
+│ Agent Container (OpenClaw CLI) │
 └──────────────────────────────┘
 ```
 
@@ -107,7 +107,7 @@ FatherClaude is built for absolute observability and control over agent executio
 |-------|------------------|
 | **Frontend** | Vite + React + TypeScript + xterm.js (Styling via Vanilla CSS/GitHub Dark) |
 | **Backend**  | Express + `ws` + Dockerode |
-| **Agent**    | Claude Code CLI (headless, unpermissioned within its own container) |
+| **Agent**    | OpenClaw CLI (headless, unpermissioned within its own container) |
 
 ---
 
@@ -124,7 +124,7 @@ Control your setup entirely through environment variables.
 ## 🏗️ Project Layout
 
 ```text
-fatherClaude/
+fatherClaw/
 ├── src/                  # Vibrant React frontend UI
 │   ├── components/       # ChatPanel, TerminalPanel, SessionList
 │   └── index.css         # Modern, glassmorphism design system 
@@ -133,7 +133,7 @@ fatherClaude/
 │   ├── ws.ts             # WebSocket bridge to stream stdout/stderr
 │   └── docker.ts         # Docker API integration (Dockerode)
 ├── docker/               # The sandbox blueprints
-│   ├── Dockerfile.claude # Headless container definition
+│   ├── Dockerfile.openclaw # Headless container definition
 │   └── workspace/        # Seed data for agents
 │       ├── CLAUDE.md     # Primary system prompt and instructions
 │       └── mcp_servers.json
@@ -144,7 +144,7 @@ fatherClaude/
 
 ## 🤝 Community & Contributing
 
-FatherClaude is designed to be highly extensible. We actively encourage the community to contribute new MCP servers, customized Dockerfiles for specific languages (Python, Go, Rust), or integrations with external skill platforms. 
+FatherClaw is designed to be highly extensible. We actively encourage the community to contribute new MCP servers, customized Dockerfiles for specific languages (Python, Go, Rust), or integrations with external skill platforms. 
 
 PRs are completely welcome! For major architectural changes, please open an issue first to discuss your idea.
 

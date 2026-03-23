@@ -1,5 +1,5 @@
-# ── FatherClaude Agent Container ──
-# Sandboxed environment with Claude Code CLI pre-installed.
+# ── FatherClaw Agent Container ──
+# Sandboxed environment with OpenClaw pre-installed.
 # Runs headless with bypassPermissions inside Docker isolation.
 
 FROM node:20-slim
@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl git jq python3 python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Claude Code CLI
-RUN npm install -g @anthropic-ai/claude-code 2>/dev/null || true
+# Install OpenClaw
+RUN npm install -g openclaw 2>/dev/null || true
 
 # Use existing non-root 'node' user (UID 1000, built into node:20-slim)
 # Claude CLI refuses bypassPermissions under root, so we run as node.
@@ -28,9 +28,9 @@ RUN mkdir -p /workspace/output /workspace/.claude \
 USER node
 WORKDIR /workspace
 
-# Default: run Claude with the prompt from env
+# Default: run OpenClaw with the prompt from env
 ENTRYPOINT ["/bin/bash", "-c", "\
-  echo \"$AGENT_PROMPT\" | claude \
+  echo \"$AGENT_PROMPT\" | openclaw \
     --print \
     --permission-mode bypassPermissions \
     --output-format text \

@@ -1,10 +1,10 @@
 {
-  "name": "fatherclaude",
+  "name": "fatherclaw",
   "version": "1.0.0",
-  "description": "Spawn fully-configured Claude agents in Docker containers with a beautiful web UI",
+  "description": "Spawn fully-configured OpenClaw agents in Docker containers with a beautiful web UI",
   "type": "module",
   "keywords": [
-    "claude",
+    "openclaw",
     "ai-agent",
     "docker",
     "cli",
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roeiba/fatherClaude"
+    "url": "https://github.com/roeiba/fatherClaw"
   },
   "homepage": "https://agentsbooks.com",
   "scripts": {
@@ -26,7 +26,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json",
     "preview": "vite preview",
-    "docker:build": "docker build -f docker/Dockerfile.claude -t fatherclaude-agent docker/"
+    "docker:build": "docker build -f docker/Dockerfile.claw -t fatherclaw-agent docker/"
   },
   "dependencies": {
     "@xterm/addon-attach": "^0.12.0",
