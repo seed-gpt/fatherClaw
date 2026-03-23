@@ -29,4 +29,4 @@ jobs:
         run: npm run build:client
 
       - name: Build Agent Image
-        run: docker build -f docker/Dockerfile.claude -t fatherclaude-agent docker/
+        run: docker build -f docker/Dockerfile.claw -t fatherclaw-agent docker/
